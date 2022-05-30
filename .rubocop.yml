@@ -12,3 +12,4 @@ AllCops:
     - '**/Gemfile'
     - 'vendor/**/*'
     - '.git/**/*'
+    - 'spec/spec_helper.rb'
