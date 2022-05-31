@@ -8,7 +8,7 @@ mount SolidusPaypalCommercePlatform::Engine, at: '/solidus_paypal_commerce_platf
   mount Spree::Core::Engine, at: '/'
 
   namespace :potepan do
-    resources :products, only: [:index, :show]
+    resources :products, only: [:show]
   end
 
   namespace :potepan do
