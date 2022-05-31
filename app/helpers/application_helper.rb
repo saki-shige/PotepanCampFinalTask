@@ -1,9 +1,10 @@
 module ApplicationHelper
   def title_for_header(title)
+    base_title = 'BIGBAG store'
     if title.empty?
-      'BIGBAG store'
+      base_title
     else
-      title + ' - BIGBAG store'
+      title + ' - ' + base_title
     end
   end
 end
