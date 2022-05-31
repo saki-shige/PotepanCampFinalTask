@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Potepan::Products", type: :request do
+  let(:product_a) { FactoryBot.create(:product) }
+
   before do
-    @product_a = FactoryBot.create(:product)
-    get potepan_product_path(@product_a.id)
+    get potepan_product_path(product_a.id)
   end
 
   describe '詳細ページテスト' do
@@ -12,15 +13,15 @@ RSpec.describe "Potepan::Products", type: :request do
     end
 
     it '商品名が表示される' do
-      expect(response.body).to include(@product_a.name)
+      expect(response.body).to include(product_a.name)
     end
 
     it '値段が表示される' do
-      expect(response.body).to include(@product_a.display_price.to_s)
+      expect(response.body).to include(product_a.display_price.to_s)
     end
 
     it '説明が表示される' do
-      expect(response.body).to include(@product_a.description)
+      expect(response.body).to include(product_a.description)
     end
   end
 end
