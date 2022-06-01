@@ -1,10 +1,11 @@
 module ApplicationHelper
+  DEFAULT_TITLE = 'BIGBAG store'.freeze
+
   def title_for_header(title)
-    base_title = 'BIGBAG store'
-    if title.empty?
-      base_title
+    if title.blank?
+      DEFAULT_TITLE
     else
-      title + ' - ' + base_title
+      title + ' - ' + DEFAULT_TITLE
     end
   end
 end
