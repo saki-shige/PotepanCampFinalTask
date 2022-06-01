@@ -2858,12 +2858,14 @@ body.bodyColor.container {
 }
 .singleProduct .media .productSlider #carousel {
   margin-bottom: 20px;
+  height: 459px;
 }
 .singleProduct .media .productSlider #carousel .item img {
   width: 100%;
 }
 .singleProduct .media .productSlider #thumbcarousel .thumb {
   width: 23.35%;
+  height: 107px;
   cursor: pointer;
   float: left;
   -webkit-transition: all 0.3s ease-in-out;
@@ -2871,6 +2873,11 @@ body.bodyColor.container {
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  display: flex;
+}
+.singleProduct .media .productSlider #thumbcarousel .thumb img {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 @media (max-width: 479px) {
   .singleProduct .media .productSlider #thumbcarousel .thumb {
