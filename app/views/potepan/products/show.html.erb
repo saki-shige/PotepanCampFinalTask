@@ -30,15 +30,9 @@
               <div id="carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                 <% @product.images.each_with_index do |image, i| %>
-                  <% if image.position == 1 %>
-                    <div class="item active" data-thumb=<%= i %>>
-                      <%= image_tag(image.url) %>
-                    </div>
-                  <% else %>
-                    <div class="item" data-thumb=<%= i %>>
-                      <%= image_tag(image.url) %>
-                    </div>
-                  <% end %>
+                  <div class="item<%= ' active' if image.position == 1 %>" data-thumb=<%= i %>>
+                    <%= image_tag(image.url) %>
+                  </div>
                 <% end %>
                 </div>
               </div>
