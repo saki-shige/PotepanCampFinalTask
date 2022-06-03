@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Potepan::Products", type: :request do
-  let(:product_a) { FactoryBot.create(:product) }
+  let(:product_a) { create(:product) }
 
   before do
     get potepan_product_path(product_a.id)
