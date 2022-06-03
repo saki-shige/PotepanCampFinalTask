@@ -9,7 +9,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     shared_examples_for 'titleを追加したタイトルが表示される' do
-      it { expect(helper.title_for_header(title)).to eq(title + ' - ' + default_title) }
+      it { expect(helper.title_for_header(title)).to eq("#{title} - #{default_title}") }
     end
 
     context 'titleがnilの時' do

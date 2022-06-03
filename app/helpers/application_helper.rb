@@ -5,7 +5,7 @@ module ApplicationHelper
     if title.blank?
       DEFAULT_TITLE
     else
-      title + ' - ' + DEFAULT_TITLE
+      "#{title} - #{DEFAULT_TITLE}"
     end
   end
 end
