@@ -2873,11 +2873,6 @@ body.bodyColor.container {
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  display: flex;
-}
-.singleProduct .media .productSlider #thumbcarousel .thumb img {
-  margin-top: auto;
-  margin-bottom: auto;
 }
 @media (max-width: 479px) {
   .singleProduct .media .productSlider #thumbcarousel .thumb {
