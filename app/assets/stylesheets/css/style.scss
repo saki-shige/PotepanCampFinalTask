@@ -2860,6 +2860,16 @@ body.bodyColor.container {
   margin-bottom: 20px;
   height: 459px;
 }
+@media (min-width: 768px) {
+  .singleProduct .media .productSlider #carousel {
+    height: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .singleProduct .media .productSlider #carousel {
+    height: 489px;
+  }
+}
 .singleProduct .media .productSlider #carousel .item img {
   width: 100%;
 }
@@ -2887,11 +2897,13 @@ body.bodyColor.container {
 @media (min-width: 768px) {
   .singleProduct .media .productSlider #thumbcarousel .thumb {
     margin-right: 2.1%;
+    height: 168px;
   }
 }
 @media (min-width: 992px) {
   .singleProduct .media .productSlider #thumbcarousel .thumb {
     margin-right: 10px;
+    height: 107px;
   }
 }
 .singleProduct .media .productSlider #thumbcarousel .thumb img {
