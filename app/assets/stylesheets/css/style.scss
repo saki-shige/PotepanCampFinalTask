@@ -2858,12 +2858,24 @@ body.bodyColor.container {
 }
 .singleProduct .media .productSlider #carousel {
   margin-bottom: 20px;
+  height: 459px;
+}
+@media (min-width: 768px) {
+  .singleProduct .media .productSlider #carousel {
+    height: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .singleProduct .media .productSlider #carousel {
+    height: 489px;
+  }
 }
 .singleProduct .media .productSlider #carousel .item img {
   width: 100%;
 }
 .singleProduct .media .productSlider #thumbcarousel .thumb {
   width: 23.35%;
+  height: 107px;
   cursor: pointer;
   float: left;
   -webkit-transition: all 0.3s ease-in-out;
@@ -2885,11 +2897,13 @@ body.bodyColor.container {
 @media (min-width: 768px) {
   .singleProduct .media .productSlider #thumbcarousel .thumb {
     margin-right: 2.1%;
+    height: 168px;
   }
 }
 @media (min-width: 992px) {
   .singleProduct .media .productSlider #thumbcarousel .thumb {
     margin-right: 10px;
+    height: 107px;
   }
 }
 .singleProduct .media .productSlider #thumbcarousel .thumb img {
