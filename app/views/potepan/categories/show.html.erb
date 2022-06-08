@@ -1,29 +1,6 @@
 <% provide(:title, @taxon.name) %>
 <div class="main-wrapper">
-  <!-- LIGHT SECTION -->
-  <section class="lightSection clearfix pageHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-6">
-          <div class="page-title">
-            <h2><%= @taxon.name %></h2>
-          </div>
-        </div>
-        <div class="col-xs-6">
-          <ol class="breadcrumb pull-right">
-            <li>
-              <%= link_to 'Home', potepan_path %>
-            </li>
-            <li>
-              <a href="#">shop</a>
-            </li>
-            <li class="active"><%= @taxon.name %></li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <%= render partial: 'shared/pageheader', locals: { subject: @taxon } %>
   <!-- MAIN CONTENT SECTION -->
   <section class="mainContent clearfix productsContent">
     <div class="container">
@@ -34,20 +11,20 @@
             <div class="panel-body">
               <div class="collapse navbar-collapse navbar-ex1-collapse navbar-side-collapse">
                 <ul class="nav navbar-nav side-nav">
-                <% @taxonomies.each do |taxonomy| %>
-                  <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#<%= taxonomy.name %>"><%= taxonomy.name %><i class="fa fa-plus"></i></a>
-                    <ul id="<%= taxonomy.name %>" class="collapse collapseItem">
-                    <% taxonomy.root.leaves.each do |leaf| %>
-                      <li>
-                        <%= link_to potepan_category_url(leaf.id) do %>
-                          <i class="fa fa-caret-right" aria-hidden="true"></i><%= leaf.name %> <span>(<%= leaf.products.count %>)</span>
+                  <% @taxonomies.each do |taxonomy| %>
+                    <li>
+                      <a href="javascript:;" data-toggle="collapse" data-target="#<%= taxonomy.name %>"><%= taxonomy.name %><i class="fa fa-plus"></i></a>
+                      <ul id="<%= taxonomy.name %>" class="collapse collapseItem">
+                        <% taxonomy.root.leaves.each do |leaf| %>
+                          <li>
+                            <%= link_to potepan_category_url(leaf.id) do %>
+                              <i class="fa fa-caret-right" aria-hidden="true"></i><%= leaf.name %> <span>(<%= leaf.products.count %>)</span>
+                            <% end %>
+                          </li>
                         <% end %>
-                      </li>
-                    <% end %>
-                    </ul>
-                  </li>
-                <% end %>
+                      </ul>
+                    </li>
+                  <% end %>
                 </ul>
               </div>
             </div>
