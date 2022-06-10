@@ -48,7 +48,8 @@ RSpec.feature "Potepan::Categories", type: :feature do
     end
 
     scenario '関連商品の商品詳細ページにアクセスできる' do
-      click_on product_a.name
+      target_class = ".category-#{product_a.id}-display"
+      find(target_class).click
       expect(current_path).to eq potepan_product_path(product_a.id)
     end
   end
