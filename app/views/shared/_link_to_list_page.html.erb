@@ -1,0 +1,14 @@
+<% if pre_action == 'show' && pre_controller == 'potepan/categories' %>
+  <%= link_to :back do %>
+    <i class="fa fa-reply", aria-hidden=true></i>一覧ページに戻る
+  <% end %>
+<% elsif @product.taxons.exists? %>
+  <%= link_to potepan_category_path(@product.taxons.first.id) do %>
+    <i class="fa fa-reply", aria-hidden=true></i>一覧ページに戻る
+  <% end %>
+<% else %>
+  <%= link_to potepan_path do %>
+    <i class="fa fa-reply", aria-hidden=true></i>一覧ページに戻る
+  <% end %>
+<% end %>
+

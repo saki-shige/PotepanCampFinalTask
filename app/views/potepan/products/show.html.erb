@@ -36,9 +36,7 @@
             <div class="media-body">
               <ul class="list-inline">
                 <li>
-                  <%= link_to :back do %>
-                    <i class="fa fa-reply" aria-hidden="true"></i>一覧ページへ戻る
-                  <% end %>
+                  <%= render partial: 'shared/link_to_list_page' %>
                 </li>
               </ul>
               <h2><%= @product.name %></h2>
