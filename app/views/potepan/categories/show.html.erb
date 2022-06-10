@@ -15,12 +15,14 @@
                     <li>
                       <a href="javascript:;" data-toggle="collapse" data-target="#taxonomy-<%= taxonomy.id %>"><%= taxonomy.name %><i class="fa fa-plus"></i></a>
                       <ul id="taxonomy-<%= taxonomy.id %>" class="collapse collapseItem">
-                        <% taxonomy.root.leaves.each do |leaf| %>
-                          <li>
-                            <%= link_to potepan_category_path(leaf.id) do %>
-                              <i class="fa fa-caret-right" aria-hidden="true"></i><%= leaf.name %> <span>(<%= leaf.products.count %>)</span>
-                            <% end %>
-                          </li>
+                        <% taxonomy.taxons.each do |taxon| %>
+                          <% if taxon.rgt - taxon.lft == 1 %>
+                            <li>
+                              <%= link_to potepan_category_path(taxon.id) do %>
+                                <i class="fa fa-caret-right" aria-hidden="true"></i><%= taxon.name %> <span>(<%= taxon.products.size %>)</span>
+                              <% end %>
+                            </li>
+                          <% end %>
                         <% end %>
                       </ul>
                     </li>
@@ -77,7 +79,7 @@
                 <div class="productBox">
                   <%= link_to potepan_product_path(product.id), class: "category-#{product.id}-display" do %>
                     <div class="productImage clearfix">
-                      <%= image_tag(product.images.first.url, :alt => "products-img") if product.images.exists? %>
+                      <%= image_tag(product.images.first.url, :alt => "products-img") if product.images.present? %>
                     </div>
                     <div class="productCaption clearfix">
                       <h5><%= product.name %></h5>
@@ -145,5 +147,3 @@
     </div>
   </section>
 </div>
-
-
