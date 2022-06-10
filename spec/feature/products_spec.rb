@@ -4,7 +4,7 @@ RSpec.feature "Potepan::Products", type: :feature do
   describe '商品詳細ページから「一覧ページに戻る」機能' do
     let(:taxon) { create(:taxon) }
     let!(:product_with_taxon) { create(:product, name: 'product_with_taxon', taxons: [taxon]) }
-    let(:product_without_taxon){ create(:product, name: 'product_without_taxon') }
+    let(:product_without_taxon) { create(:product, name: 'product_without_taxon') }
 
     context 'カテゴリーページから商品詳細ページにアクセスした場合' do
       before do
