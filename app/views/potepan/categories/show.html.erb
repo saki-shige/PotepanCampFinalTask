@@ -1,6 +1,6 @@
 <% provide(:title, @taxon.name) %>
 <div class="main-wrapper">
-  <%= render partial: 'shared/pageheader', locals: { subject: @taxon } %>
+  <%= render 'shared/pageheader', subject: @taxon %>
   <!-- MAIN CONTENT SECTION -->
   <section class="mainContent clearfix productsContent">
     <div class="container">

@@ -1,6 +1,6 @@
 <% provide(:title, @product.name) %>
 <div class="main-wrapper">
-  <%= render partial: 'shared/pageheader', locals: { subject: @product } %>
+  <%= render 'shared/pageheader',subject: @product %>
   <!-- MAIN CONTENT SECTION -->
   <section class="mainContent clearfix">
     <div class="container">
@@ -36,7 +36,7 @@
             <div class="media-body">
               <ul class="list-inline">
                 <li>
-                  <%= render partial: 'shared/link_to_list_page' %>
+                  <%= render 'shared/link_to_list_page' %>
                 </li>
               </ul>
               <h2><%= @product.name %></h2>
