@@ -1,4 +1,4 @@
-<% if pre_action == 'show' && pre_controller == 'potepan/categories' %>
+<% if /.+potepan\/categories\/\d+$/.match(request.referer) %>
   <%= link_to :back do %>
     <i class="fa fa-reply", aria-hidden=true></i>一覧ページに戻る
   <% end %>
@@ -11,4 +11,3 @@
     <i class="fa fa-reply", aria-hidden=true></i>一覧ページに戻る
   <% end %>
 <% end %>
-
