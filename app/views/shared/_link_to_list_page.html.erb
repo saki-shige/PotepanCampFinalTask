@@ -2,8 +2,8 @@
   <%= link_to :back do %>
     <i class="fa fa-reply", aria-hidden=true></i>一覧ページに戻る
   <% end %>
-<% elsif @product.taxons.exists? %>
-  <%= link_to potepan_category_path(@product.taxons.first.id) do %>
+<% elsif product.taxons.exists? %>
+  <%= link_to potepan_category_path(product.taxons.first.id) do %>
     <i class="fa fa-reply", aria-hidden=true></i>一覧ページに戻る
   <% end %>
 <% else %>
