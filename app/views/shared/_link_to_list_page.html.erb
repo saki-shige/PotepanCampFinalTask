@@ -1,0 +1,7 @@
+<% if /.+potepan\/categories\/\d+$/.match(request.referer) %>
+  <%= link_to raw("<i class='fa fa-reply', aria-hidden=true></i>一覧ページに戻る"), :back %>
+<% elsif taxon_id = product.taxons.first&.id %>
+  <%= link_to raw("<i class='fa fa-reply', aria-hidden=true></i>一覧ページに戻る"), potepan_category_path(taxon_id) %>
+<% else %>
+  <%= link_to raw("<i class='fa fa-reply', aria-hidden=true></i>一覧ページに戻る"), potepan_path %>
+<% end %>

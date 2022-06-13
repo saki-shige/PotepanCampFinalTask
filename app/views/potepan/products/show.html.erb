@@ -1,25 +1,6 @@
 <% provide(:title, @product.name) %>
 <div class="main-wrapper">
-  <!-- LIGHT SECTION -->
-  <section class="lightSection clearfix pageHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-6">
-          <div class="page-title">
-            <h2><%= @product.name %></h2>
-          </div>
-        </div>
-        <div class="col-xs-6">
-          <ol class="breadcrumb pull-right">
-            <li>
-              <%= link_to 'Home', potepan_path %>
-            </li>
-            <li class="active"><%= @product.name %></li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </section>
+  <%= render 'shared/pageheader', subject: @product %>
   <!-- MAIN CONTENT SECTION -->
   <section class="mainContent clearfix">
     <div class="container">
@@ -54,7 +35,9 @@
             </div>
             <div class="media-body">
               <ul class="list-inline">
-                <li><a href="product_grid_left_sidebar.html"><i class="fa fa-reply" aria-hidden="true"></i>一覧ページへ戻る</a></li>
+                <li>
+                  <%= render 'shared/link_to_list_page', product: @product %>
+                </li>
               </ul>
               <h2><%= @product.name %></h2>
               <h3><%= @product.display_price %></h3>
