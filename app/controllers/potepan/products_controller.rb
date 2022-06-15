@@ -8,8 +8,8 @@ class Potepan::ProductsController < ApplicationController
 
   def list_up_related_products(origin_product)
     list_taxonomy_ids = Spree::Taxonomy.all.order(:position).ids
-    list_taxons = origin_product.taxons.order([Arel.sql('field(taxonomy_id, ?)'), list_taxonomy_ids]).
-      includes(:products)
+    list_taxons = origin_product.taxons.
+      order([Arel.sql('field(taxonomy_id, ?)'), list_taxonomy_ids]).includes(:products)
     list_product_ids = []
     list_taxons.each do |list_taxon|
       list_product_ids.concat(list_taxon.products.ids.reverse!)
