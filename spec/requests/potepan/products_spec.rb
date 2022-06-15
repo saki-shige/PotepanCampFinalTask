@@ -13,13 +13,23 @@ RSpec.describe "Potepan::Products", type: :request do
   end
   let!(:taxon_not_related) do
     create(:taxon, name: 'taxon_not_related', parent_id: taxonomy_b.root.id,
-      taxonomy: taxonomy_b)
+                   taxonomy: taxonomy_b)
   end
-  let!(:product_with_taxon) { create(:product, name: 'product_with_taxon', taxons: [taxon_a, taxon_b]) }
-  let!(:product_id1_related_a) { create(:product, id: 1, name: 'product_id1_related_a', taxons: [taxon_a]) }
-  let!(:product_id2_related_b) { create(:product, id: 2, name: 'product_id2_related_b', taxons: [taxon_b]) }
-  let!(:product_id3_related_a_b) { create(:product, id: 3, name: 'product_id3_related_a_b', taxons: [taxon_a, taxon_b]) }
-  let!(:product_not_related) { create(:product, name: 'product_not_rerated', taxons: [taxon_not_related]) }
+  let!(:product_with_taxon) do
+    create(:product, name: 'product_with_taxon', taxons: [taxon_a, taxon_b])
+  end
+  let!(:product_id1_related_a) do
+    create(:product, id: 1, name: 'product_id1_related_a', taxons: [taxon_a])
+  end
+  let!(:product_id2_related_b) do
+    create(:product, id: 2, name: 'product_id2_related_b', taxons: [taxon_b])
+  end
+  let!(:product_id3_related_a_b) do
+    create(:product, id: 3, name: 'product_id3_related_a_b', taxons: [taxon_a, taxon_b])
+  end
+  let!(:product_not_related) do
+    create(:product, name: 'product_not_rerated', taxons: [taxon_not_related])
+  end
 
   before do
     get potepan_product_path(product_with_taxon.id)

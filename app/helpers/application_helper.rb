@@ -9,13 +9,11 @@ module ApplicationHelper
     end
   end
 
-  def link_destination(product)
+  def assgin_link(product)
     if /.+potepan\/categories\/\d+$/.match(request.referer)
       :back
-    elsif taxon_id = product.taxons.first&.id
-      potepan_category_path(taxon_id)
     else
-      potepan_path
+      product.taxons.exists? ? potepan_category_path(product.taxons.first.id) : potepan_path
     end
   end
 end
