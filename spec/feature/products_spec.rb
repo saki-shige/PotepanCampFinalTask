@@ -47,14 +47,8 @@ RSpec.feature "Potepan::Products", type: :feature do
   end
 
   describe '関連商品を表示する機能' do
-    let(:taxon_not_related) do
-      create(:taxon, name: 'taxon_not_related', parent_id: taxonomy_b.root.id, taxonomy: taxonomy_b)
-    end
     let!(:product_related) do
-      create(:product, id: 1, name: 'product_related', taxons: [taxon_a])
-    end
-    let!(:product_not_related) do
-      create(:product, name: 'product_not_rerated', taxons: [taxon_not_related])
+      create(:product, name: 'product_related', taxons: [taxon_a])
     end
 
     context '商品が関連商品を持つ場合' do
@@ -66,7 +60,6 @@ RSpec.feature "Potepan::Products", type: :feature do
         within('.productsContent') do
           expect(page).to have_selector '.relation-0', text: product_related.name
           expect(page).to have_selector '.relation-0', text: product_related.display_price.to_s
-          expect(page).not_to have_selector '.relation-1'
         end
       end
 
@@ -75,28 +68,6 @@ RSpec.feature "Potepan::Products", type: :feature do
           find('.relation-0').click
           expect(current_path).to eq potepan_product_path(product_related.id)
         end
-      end
-
-      it '関連しない商品は表示されない' do
-        within('.productsContent') do
-          expect(page).not_to have_content product_not_related.name
-        end
-      end
-
-      it '詳細表示中の商品は表示されない' do
-        within('.productsContent') do
-          expect(page).not_to have_content product_with_taxon.name
-        end
-      end
-    end
-
-    context '商品が関連商品を持たない場合' do
-      before do
-        visit potepan_product_path(product_without_taxon.id)
-      end
-
-      it '関連商品は表示されない' do
-        expect(page).not_to have_selector '.relation-0'
       end
     end
   end

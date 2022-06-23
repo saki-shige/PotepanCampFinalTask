@@ -9,9 +9,6 @@ RSpec.describe "Potepan::Product", type: :model do
   let(:taxon_b) do
     create(:taxon, name: 'taxon_b', parent_id: taxonomy_b.root.id, taxonomy: taxonomy_b)
   end
-  let(:taxon_not_related) do
-    create(:taxon, name: 'taxon_not_related', parent_id: taxonomy_b.root.id, taxonomy: taxonomy_b)
-  end
   let(:product_with_taxon) do
     create(:product, name: 'product_with_taxon', taxons: [taxon_a, taxon_b])
   end
@@ -27,9 +24,6 @@ RSpec.describe "Potepan::Product", type: :model do
   end
   let!(:product_id4_related_b) do
     create(:product, id: 4, name: 'product_id4_related_b', taxons: [taxon_b])
-  end
-  let!(:product_not_related) do
-    create(:product, name: 'product_not_rerated', taxons: [taxon_not_related])
   end
 
   describe '関連商品を抽出する機能' do
