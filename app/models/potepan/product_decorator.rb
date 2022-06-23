@@ -1,5 +1,5 @@
 module Potepan::ProductDecorator
-  def list_up_relations
+  def list_up_relations(limit: i)
     list_taxonomy_ids = Spree::Taxonomy.all.order(:position).ids
     list_taxons = taxons.order([Arel.sql('field(taxonomy_id, ?)'), list_taxonomy_ids])
     list_product_ids = []
@@ -7,8 +7,8 @@ module Potepan::ProductDecorator
       list_product_ids.concat(list_taxon.products.ids.reverse!)
       list_product_ids.uniq!
       list_product_ids.delete(id)
-      if list_product_ids.length >= 4
-        list_product_ids = list_product_ids[0..3]
+      if list_product_ids.length >= limit
+        list_product_ids = list_product_ids[0..(limit-1)]
         break
       end
     end
