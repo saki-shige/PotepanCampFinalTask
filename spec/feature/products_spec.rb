@@ -51,23 +51,21 @@ RSpec.feature "Potepan::Products", type: :feature do
       create(:product, name: 'product_related', taxons: [taxon_a])
     end
 
-    context '商品が関連商品を持つ場合' do
-      before do
-        visit potepan_product_path(product_with_taxon.id)
-      end
+    before do
+      visit potepan_product_path(product_with_taxon.id)
+    end
 
-      it '関連商品の情報が表示される' do
-        within('.productsContent') do
-          expect(page).to have_selector '.relation-0', text: product_related.name
-          expect(page).to have_selector '.relation-0', text: product_related.display_price.to_s
-        end
+    it '関連商品の情報が表示される' do
+      within('.productsContent') do
+        expect(page).to have_selector '.relation-0', text: product_related.name
+        expect(page).to have_selector '.relation-0', text: product_related.display_price.to_s
       end
+    end
 
-      it '関連商品の商品詳細にアクセスできる' do
-        within('.productsContent') do
-          find('.relation-0').click
-          expect(current_path).to eq potepan_product_path(product_related.id)
-        end
+    it '関連商品の商品詳細にアクセスできる' do
+      within('.productsContent') do
+        find('.relation-0').click
+        expect(current_path).to eq potepan_product_path(product_related.id)
       end
     end
   end
