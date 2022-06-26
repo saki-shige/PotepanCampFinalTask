@@ -16,7 +16,7 @@ RSpec.describe "Potepan::Product", type: :model do
   let!(:product_id4_related_b) { create(:product, id: 4, taxons: [taxon_b]) }
 
   describe '関連商品を抽出する機能' do
-    subject { product.list_up_relations(limit: 3) }
+    subject { product.list_up_relations(limit_for_display: 3) }
 
     context '商品が関連商品を指定数以上持つ場合' do
       let(:taxons) { [taxon_a, taxon_b] }
@@ -26,7 +26,7 @@ RSpec.describe "Potepan::Product", type: :model do
       end
     end
 
-    context '商品が関連商品を持たない場合' do
+    context '商品がtaxonを持たない場合' do
       let(:taxons) { [] }
 
       it '商品情報は取得されない' do
