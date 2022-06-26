@@ -1,10 +1,14 @@
 module Potepan::ProductDecorator
   def list_up_relations(limit:)
-    Spree::Product.joins(taxons: :taxonomy).
+    return Spree::Product.none if taxons == []
+
+    Spree::Product.
+      in_taxons(taxons).
+      joins(taxons: :taxonomy).
+      select("spree_products.*, MIN(spree_taxonomies.position) AS taxonomy_position").
       where.not(id: id).
-      where(spree_taxons: { id: taxons.ids }).
-      order('spree_taxonomies.position asc').
-      order(id: :desc).uniq[0..(limit - 1)]
+      group(:id).order("taxonomy_position, id desc").
+      limit(limit)
   end
 
   Spree::Product.prepend self
