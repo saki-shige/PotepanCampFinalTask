@@ -1,5 +1,5 @@
 module Potepan::ProductDecorator
-  def list_up_relations(limit_for_display:)
+  def list_up_relations
     return Spree::Product.none if taxons == []
 
     Spree::Product.
@@ -7,8 +7,7 @@ module Potepan::ProductDecorator
       joins(taxons: :taxonomy).
       select("spree_products.*, MIN(spree_taxonomies.position) AS taxonomy_position").
       where.not(id: id).
-      group(:id).order("taxonomy_position, id desc").
-      limit(limit_for_display)
+      group(:id).order("taxonomy_position, id desc")
   end
 
   Spree::Product.prepend self
