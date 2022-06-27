@@ -3,7 +3,8 @@ class Potepan::ProductsController < ApplicationController
 
   def show
     @product = Spree::Product.find(params[:id])
-    @products = @product.list_up_relations.limit(LIMIT_FOR_DISPLAY).
-      includes(master: [:default_price, :images])
+    @products = @product.list_up_relations.
+      includes(master: [:default_price, :images]).
+      limit(LIMIT_FOR_DISPLAY)
   end
 end
