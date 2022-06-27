@@ -13,16 +13,15 @@ RSpec.describe "Potepan::Product", type: :model do
   let!(:product_id1_related_a) { create(:product, id: 1, taxons: [taxon_a]) }
   let!(:product_id2_related_b) { create(:product, id: 2, taxons: [taxon_b]) }
   let!(:product_id3_related_a_b) { create(:product, id: 3, taxons: [taxon_a, taxon_b]) }
-  let!(:product_id4_related_b) { create(:product, id: 4, taxons: [taxon_b]) }
 
-  describe '関連商品を抽出する機能' do
-    subject { product.list_up_relations(limit_for_display: 3) }
+  describe 'list_up_relations' do
+    subject { product.list_up_relations }
 
-    context '商品が関連商品を指定数以上持つ場合' do
+    context '商品が関連商品を持つ場合' do
       let(:taxons) { [taxon_a, taxon_b] }
 
-      it '関連商品のみを指定数順番通りに取得する' do
-        is_expected.to eq [product_id3_related_a_b, product_id1_related_a, product_id4_related_b]
+      it '関連商品のみを順番通りに取得する' do
+        is_expected.to eq [product_id3_related_a_b, product_id1_related_a, product_id2_related_b]
       end
     end
 

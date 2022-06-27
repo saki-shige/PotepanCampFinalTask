@@ -47,9 +47,13 @@ RSpec.feature "Potepan::Products", type: :feature do
   end
 
   describe '関連商品を表示する機能' do
-    let!(:product_related) do
-      create(:product, name: 'product_related', taxons: [taxon_a])
+    let!(:product_id1_related) do
+      create(:product, name: 'product_not_displaied', id: 1, taxons: [taxon_a])
     end
+    let!(:product_id2_related) { create(:product, id: 2, taxons: [taxon_a]) }
+    let!(:product_id3_related) { create(:product, id: 3, taxons: [taxon_a]) }
+    let!(:product_id4_related) { create(:product, id: 4, taxons: [taxon_a]) }
+    let!(:product_id5_related) { create(:product, id: 5, taxons: [taxon_a]) }
 
     before do
       visit potepan_product_path(product_with_taxon.id)
@@ -57,15 +61,21 @@ RSpec.feature "Potepan::Products", type: :feature do
 
     it '関連商品の情報が表示される' do
       within('.productsContent') do
-        expect(page).to have_selector '.relation-0', text: product_related.name
-        expect(page).to have_selector '.relation-0', text: product_related.display_price.to_s
+        expect(page).to have_selector '.relation-0', text: product_id5_related.name
+        expect(page).to have_selector '.relation-0', text: product_id5_related.display_price.to_s
+      end
+    end
+
+    it '５つ目の関連商品は表示されない' do
+      within('.productsContent') do
+        expect(page).not_to have_content product_id1_related.name
       end
     end
 
     it '関連商品の商品詳細にアクセスできる' do
       within('.productsContent') do
         find('.relation-0').click
-        expect(current_path).to eq potepan_product_path(product_related.id)
+        expect(current_path).to eq potepan_product_path(product_id5_related.id)
       end
     end
   end
