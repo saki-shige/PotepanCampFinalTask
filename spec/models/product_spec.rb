@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe "Potepan::Product", type: :model do
   let(:taxonomy_a) { create(:taxonomy, position: 1) }
   let(:taxonomy_b) { create(:taxonomy, position: 2) }
-  let(:taxon_a) {create(:taxon, parent_id: taxonomy_a.root.id, taxonomy: taxonomy_a)}
-  let(:taxon_b) {create(:taxon, parent_id: taxonomy_b.root.id, taxonomy: taxonomy_b)}
-  let(:taxon_c) {create(:taxon, parent_id: taxonomy_b.root.id, taxonomy: taxonomy_b)}
+  let(:taxon_a) { create(:taxon, parent_id: taxonomy_a.root.id, taxonomy: taxonomy_a) }
+  let(:taxon_b) { create(:taxon, parent_id: taxonomy_b.root.id, taxonomy: taxonomy_b) }
+  let(:taxon_c) { create(:taxon, parent_id: taxonomy_b.root.id, taxonomy: taxonomy_b) }
   let(:product) { create(:product, taxons: taxons) }
   let!(:product_id1_related_a) { create(:product, id: 1, taxons: [taxon_a]) }
   let!(:product_id2_related_b) { create(:product, id: 2, taxons: [taxon_b]) }
