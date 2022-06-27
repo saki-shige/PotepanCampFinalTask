@@ -12,7 +12,7 @@ RSpec.describe "Potepan::Product", type: :model do
   let!(:product_id3_related_a_b) { create(:product, id: 3, taxons: [taxon_a, taxon_b]) }
   let!(:product_id4_related_c) { create(:product, id: 4, taxons: [taxon_c]) }
 
-  describe 'list_up_relations' do
+  describe '#list_up_relations' do
     subject { product.list_up_relations }
 
     context '商品が関連商品を持つ場合' do
