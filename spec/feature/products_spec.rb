@@ -50,10 +50,10 @@ RSpec.feature "Potepan::Products", type: :feature do
     let!(:product_id1_related) do
       create(:product, name: 'product_not_displaied', id: 1, taxons: [taxon_a])
     end
-    let!(:product_id2_related) { create(:product, id: 2, taxons: [taxon_a]) }
-    let!(:product_id3_related) { create(:product, id: 3, taxons: [taxon_a]) }
-    let!(:product_id4_related) { create(:product, id: 4, taxons: [taxon_a]) }
-    let!(:product_id5_related) { create(:product, id: 5, taxons: [taxon_a]) }
+    let!(:product_id2_related) { create(:product, id: 2, price: 2, taxons: [taxon_a]) }
+    let!(:product_id3_related) { create(:product, id: 3, price: 3, taxons: [taxon_a]) }
+    let!(:product_id4_related) { create(:product, id: 4, price: 4, taxons: [taxon_a]) }
+    let!(:product_id5_related) { create(:product, id: 5, price: 5, taxons: [taxon_a]) }
 
     before do
       visit potepan_product_path(product_with_taxon.id)
@@ -63,6 +63,12 @@ RSpec.feature "Potepan::Products", type: :feature do
       within('.productsContent') do
         expect(page).to have_selector '.relation-0', text: product_id5_related.name
         expect(page).to have_selector '.relation-0', text: product_id5_related.display_price.to_s
+        expect(page).to have_selector '.relation-1', text: product_id4_related.name
+        expect(page).to have_selector '.relation-1', text: product_id4_related.display_price.to_s
+        expect(page).to have_selector '.relation-2', text: product_id3_related.name
+        expect(page).to have_selector '.relation-2', text: product_id3_related.display_price.to_s
+        expect(page).to have_selector '.relation-3', text: product_id2_related.name
+        expect(page).to have_selector '.relation-3', text: product_id2_related.display_price.to_s
       end
     end
 
