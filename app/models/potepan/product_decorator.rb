@@ -1,6 +1,6 @@
 module Potepan::ProductDecorator
   def list_up_relations
-    return Spree::Product.none if taxons == []
+    return Spree::Product.none if taxons.empty?
 
     Spree::Product.
       in_taxons(taxons).
