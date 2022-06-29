@@ -47,13 +47,10 @@ RSpec.feature "Potepan::Products", type: :feature do
   end
 
   describe '関連商品を表示する機能' do
-    let!(:product_id1_related) do
-      create(:product, name: 'product_not_displaied', id: 1, taxons: [taxon_a])
+    let!(:related_but_not_displaied_product) do
+      create(:product, name: 'not_displaied', taxons: [taxon_a])
     end
-    let!(:product_id2_related) { create(:product, id: 2, price: 2, taxons: [taxon_a]) }
-    let!(:product_id3_related) { create(:product, id: 3, price: 3, taxons: [taxon_a]) }
-    let!(:product_id4_related) { create(:product, id: 4, price: 4, taxons: [taxon_a]) }
-    let!(:product_id5_related) { create(:product, id: 5, price: 5, taxons: [taxon_a]) }
+    let!(:related_products) {create_list(:product, 4, taxons: [taxon_a])}
 
     before do
       visit potepan_product_path(product_with_taxon.id)
@@ -61,27 +58,23 @@ RSpec.feature "Potepan::Products", type: :feature do
 
     it '関連商品の情報が表示される' do
       within('.productsContent') do
-        expect(page).to have_selector '.relation-0', text: product_id5_related.name
-        expect(page).to have_selector '.relation-0', text: product_id5_related.display_price.to_s
-        expect(page).to have_selector '.relation-1', text: product_id4_related.name
-        expect(page).to have_selector '.relation-1', text: product_id4_related.display_price.to_s
-        expect(page).to have_selector '.relation-2', text: product_id3_related.name
-        expect(page).to have_selector '.relation-2', text: product_id3_related.display_price.to_s
-        expect(page).to have_selector '.relation-3', text: product_id2_related.name
-        expect(page).to have_selector '.relation-3', text: product_id2_related.display_price.to_s
+        related_products.each_with_index do |related_product, i|
+          expect(page).to have_selector ".relation-#{3 - i}", text: related_product.name
+          expect(page).to have_selector ".relation-#{3 - i}", text: related_product.display_price.to_s
+        end
       end
     end
 
     it '５つ目の関連商品は表示されない' do
       within('.productsContent') do
-        expect(page).not_to have_content product_id1_related.name
+        expect(page).not_to have_content related_but_not_displaied_product.name
       end
     end
 
     it '関連商品の商品詳細にアクセスできる' do
       within('.productsContent') do
         find('.relation-0').click
-        expect(current_path).to eq potepan_product_path(product_id5_related.id)
+        eexpect(current_path).to eq potepan_product_path(related_products[3].id)
       end
     end
   end
