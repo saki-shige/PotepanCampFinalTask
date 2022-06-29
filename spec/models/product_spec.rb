@@ -1,25 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe "Potepan::Product", type: :model do
-  let(:taxonomy_a) { create(:taxonomy, position: 1) }
-  let(:taxonomy_b) { create(:taxonomy, position: 2) }
-  let(:taxon_a) { create(:taxon, parent_id: taxonomy_a.root.id, taxonomy: taxonomy_a) }
-  let(:taxon_b) { create(:taxon, parent_id: taxonomy_b.root.id, taxonomy: taxonomy_b) }
-  let(:taxon_c) { create(:taxon, parent_id: taxonomy_b.root.id, taxonomy: taxonomy_b) }
+  let(:primary_taxonomy) { create(:taxonomy, position: 1) }
+  let(:secondary_taxonomy) { create(:taxonomy, position: 2) }
+  let(:primary_taxon) do
+    create(:taxon, parent_id: primary_taxonomy.root.id, taxonomy: primary_taxonomy)
+  end
+  let(:secondary_taxon) do
+    create(:taxon, parent_id: secondary_taxonomy.root.id, taxonomy: secondary_taxonomy)
+  end
+  let(:other_taxon) do
+    create(:taxon, parent_id: secondary_taxonomy.root.id, taxonomy: secondary_taxonomy)
+  end
   let(:product) { create(:product, taxons: taxons) }
-  let!(:product_id1_related_a) { create(:product, id: 1, taxons: [taxon_a]) }
-  let!(:product_id2_related_b) { create(:product, id: 2, taxons: [taxon_b]) }
-  let!(:product_id3_related_a_b) { create(:product, id: 3, taxons: [taxon_a, taxon_b]) }
-  let!(:product_id4_related_c) { create(:product, id: 4, taxons: [taxon_c]) }
+  let!(:secondary_related_product) { create(:product, taxons: [primary_taxon]) }
+  let!(:tertiary_related_product) { create(:product, taxons: [secondary_taxon]) }
+  let!(:primary_related_product) do
+    create(:product, taxons: [primary_taxon, secondary_taxon])
+  end
+  let!(:other_product) { create(:product, taxons: [other_taxon]) }
 
   describe '#list_up_relations' do
     subject { product.list_up_relations }
 
     context '商品が関連商品を持つ場合' do
-      let(:taxons) { [taxon_a, taxon_b] }
+      let(:taxons) { [primary_taxon, secondary_taxon] }
 
       it '関連商品のみを順番通りに取得する' do
-        is_expected.to eq [product_id3_related_a_b, product_id1_related_a, product_id2_related_b]
+        is_expected.to eq [
+          primary_related_product,
+          secondary_related_product,
+          tertiary_related_product,
+        ]
       end
     end
 
