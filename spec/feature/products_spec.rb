@@ -58,10 +58,9 @@ RSpec.feature "Potepan::Products", type: :feature do
 
     it '関連商品の情報が表示される' do
       within('.productsContent') do
-        related_products.each_with_index do |related_product, i|
-          expect(page).to have_selector ".relation-#{3 - i}", text: related_product.name
-          expect(page).to have_selector ".relation-#{3 - i}",
-                                        text: related_product.display_price.to_s
+        related_products.all? do |related_product|
+          expect(page).to have_content related_product.name
+          expect(page).to have_content related_product.display_price
         end
       end
     end
