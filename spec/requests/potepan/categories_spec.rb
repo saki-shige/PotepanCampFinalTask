@@ -2,15 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "Potepan::Categories", type: :request do
   let(:taxonomy) { create(:taxonomy) }
-  let(:taxon_a) do
-    create(:taxon, name: 'taxon_a', parent_id: taxonomy.root.id,
-                   taxonomy: taxonomy)
-  end
-  let!(:product_a) { create(:product, name: 'product_a', taxons: [taxon_a]) }
-  let!(:product_b) { create(:product, name: 'product_b') }
+  let(:taxon) { create(:taxon, parent_id: taxonomy.root.id, taxonomy: taxonomy) }
+  let!(:product) { create(:product, name: 'product', taxons: [taxon]) }
+  let!(:other_product) { create(:product, name: 'other_product') }
 
   before do
-    get potepan_category_path(taxon_a.id)
+    get potepan_category_path(taxon.id)
   end
 
   describe 'カテゴリーページテスト' do
@@ -19,13 +16,13 @@ RSpec.describe "Potepan::Categories", type: :request do
     end
 
     it 'カテゴリーが表示される' do
-      expect(response.body).to include(taxon_a.name)
+      expect(response.body).to include(taxon.name)
     end
 
     it '関連商品のみ情報が表示される' do
-      expect(response.body).to include(product_a.name)
-      expect(response.body).to include(product_a.display_price.to_s)
-      expect(response.body).not_to include(product_b.name)
+      expect(response.body).to include(product.name)
+      expect(response.body).to include(product.display_price.to_s)
+      expect(response.body).not_to include(other_product.name)
     end
 
     it 'カテゴリー（最上位）が表示される' do
