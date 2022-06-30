@@ -15,9 +15,7 @@ RSpec.describe "Potepan::Product", type: :model do
   let(:product) { create(:product, taxons: taxons) }
   let!(:secondary_related_product) { create(:product, taxons: [primary_taxon]) }
   let!(:tertiary_related_product) { create(:product, taxons: [secondary_taxon]) }
-  let!(:primary_related_product) do
-    create(:product, taxons: [primary_taxon, secondary_taxon])
-  end
+  let!(:primary_related_product) { create(:product, taxons: [primary_taxon, secondary_taxon]) }
   let!(:other_product) { create(:product, taxons: [other_taxon]) }
 
   describe '#list_up_relations' do
