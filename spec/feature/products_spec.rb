@@ -11,7 +11,6 @@ RSpec.feature "Potepan::Products", type: :feature do
   let!(:product) do
     create(:product, taxons: [primary_taxon, secondary_taxon])
   end
-  let(:product_without_taxon) { create(:product) }
 
   describe '商品詳細ページから「一覧ページに戻る」機能' do
     context 'カテゴリーページから商品詳細ページにアクセスした場合' do
@@ -36,6 +35,8 @@ RSpec.feature "Potepan::Products", type: :feature do
       end
 
       context '商品がtaxonを持っていない場合' do
+        let(:product_without_taxon) { create(:product) }
+
         it 'ホームページに戻る' do
           visit potepan_product_path(product_without_taxon.id)
           click_on '一覧ページに戻る'
