@@ -46,8 +46,8 @@ RSpec.feature "Potepan::Products", type: :feature do
   end
 
   describe '関連商品を表示する機能' do
-    let!(:related_but_not_displaied_product) do
-      create(:product, name: 'not_displaied', taxons: [primary_taxon])
+    let!(:related_but_not_displayed_product) do
+      create(:product, name: 'not_displayed', taxons: [primary_taxon])
     end
     let!(:related_products) { create_list(:product, 4, taxons: [primary_taxon]) }
 
@@ -67,7 +67,7 @@ RSpec.feature "Potepan::Products", type: :feature do
 
     it '５つ目の関連商品は表示されない' do
       within('.productsContent') do
-        expect(page).not_to have_content related_but_not_displaied_product.name
+        expect(page).not_to have_content related_but_not_displayed_product.name
       end
     end
 
