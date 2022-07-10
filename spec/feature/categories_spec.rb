@@ -2,26 +2,26 @@ require 'rails_helper'
 
 RSpec.feature "Potepan::Categories", type: :feature do
   given(:taxonomy) { create(:taxonomy) }
-  given(:taxon_a) do
-    create(:taxon, name: 'taxon_a', parent_id: taxonomy.root.id,
+  given(:taxon) do
+    create(:taxon, name: 'taxon', parent_id: taxonomy.root.id,
                    taxonomy: taxonomy)
   end
-  given(:taxon_b) do
-    create(:taxon, name: 'taxon_b', parent_id: taxonomy.root.id,
+  given(:other_taxon) do
+    create(:taxon, name: 'other_taxon', parent_id: taxonomy.root.id,
                    taxonomy: taxonomy)
   end
-  given!(:product_a) { create(:product, name: 'product_a', taxons: [taxon_a]) }
-  given!(:product_b) { create(:product, name: 'product_b', taxons: [taxon_b]) }
+  given!(:product) { create(:product, name: 'product', taxons: [taxon]) }
+  given!(:other_product) { create(:product, name: 'other_product', taxons: [other_taxon]) }
 
   describe 'カテゴリー一覧画面' do
-    context 'taxon_aのカテゴリーページを表示した場合' do
+    context 'taxonのカテゴリーページを表示した場合' do
       background do
-        visit potepan_category_path(taxon_a.id)
+        visit potepan_category_path(taxon.id)
       end
 
-      scenario 'ページヘッダーにtaxon_aの名前が表示される' do
-        expect(page).to have_selector '.page-title', text: taxon_a.name
-        expect(page).to have_selector '.pull-right li', text: taxon_a.name
+      scenario 'ページヘッダーにtaxonの名前が表示される' do
+        expect(page).to have_selector '.page-title', text: taxon.name
+        expect(page).to have_selector '.pull-right li', text: taxon.name
       end
 
       scenario 'ページヘッダーからホームページにアクセスできる' do
@@ -35,29 +35,29 @@ RSpec.feature "Potepan::Categories", type: :feature do
         within('.side-nav') do
           expect(page).to have_content taxonomy.name
           click_on taxonomy.name
-          expect(page).to have_content taxon_a.name
-          expect(page).to have_content taxon_a.products.count
-          expect(page).to have_content taxon_b.name
-          expect(page).to have_content taxon_b.products.count
+          expect(page).to have_content taxon.name
+          expect(page).to have_content taxon.products.count
+          expect(page).to have_content other_taxon.name
+          expect(page).to have_content other_taxon.products.count
         end
       end
 
       scenario 'ツリーから他のtaxonのカテゴリーページにアクセスできる' do
         click_on taxonomy.name
-        click_on taxon_b.name
-        expect(current_path).to eq potepan_category_path(taxon_b.id)
+        click_on other_taxon.name
+        expect(current_path).to eq potepan_category_path(other_taxon.id)
       end
 
-      scenario 'taxon_aの関連商品のみ表示される' do
-        expect(page).to have_content product_a.name
-        expect(page).to have_content product_a.display_price
-        expect(page).not_to have_content product_b.name
+      scenario 'taxonの関連商品のみ表示される' do
+        expect(page).to have_content product.name
+        expect(page).to have_content product.display_price
+        expect(page).not_to have_content other_product.name
       end
 
       scenario '関連商品の商品詳細ページにアクセスできる' do
-        target_class = ".category-#{product_a.id}-display"
+        target_class = ".category-#{product.id}-display"
         find(target_class).click
-        expect(current_path).to eq potepan_product_path(product_a.id)
+        expect(current_path).to eq potepan_product_path(product.id)
       end
     end
   end

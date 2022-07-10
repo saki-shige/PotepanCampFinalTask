@@ -8,4 +8,12 @@ module ApplicationHelper
       "#{title} - #{DEFAULT_TITLE}"
     end
   end
+
+  def assgin_link(product)
+    if /.+potepan\/categories\/\d+$/.match(request.referer)
+      :back
+    else
+      product.taxons.exists? ? potepan_category_path(product.taxons.first.id) : potepan_path
+    end
+  end
 end
